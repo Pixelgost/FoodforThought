@@ -20,9 +20,10 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 import { firebase } from "googleapis/build/src/apis/firebase";
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider, RecaptchaVerifier } from "firebase/auth";
 const provider = new GoogleAuthProvider();
 const auth = getAuth();
+const react = require('react');
 auth.languageCode = 'it';
 firebase.auth().useDeviceLanguage();
 signInWithPopup(auth, provider)
@@ -43,3 +44,4 @@ signInWithPopup(auth, provider)
     const credential = GoogleAuthProvider.credentialFromError(error);
     // ...
   });
+
