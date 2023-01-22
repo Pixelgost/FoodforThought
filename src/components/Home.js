@@ -5,7 +5,7 @@ var AWS = require("aws-sdk");
 let awsConfig = {
     "region": "us-east-2",
     "endpoint": "http://dynamodb.us-east-2.amazonaws.com",
-    "accessKeyId": "AKIATWHP2O5ZIHUYX4RT", "secretAccessKey": "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"
+    "accessKeyId": "*******", "secretAccessKey": "*******"
 };
 AWS.config.update(awsConfig);
   
@@ -24,7 +24,7 @@ const containerStyle = {
 function Home() {
 const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey: "AIzaSyDk7tn9tpSTXL0dwRxX9KnVmK9-GzwANQE"
+    googleMapsApiKey: "****"
 })
 
 // eslint-disable-next-line
