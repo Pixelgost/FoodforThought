@@ -1,5 +1,6 @@
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
 import React from 'react';
+import NavBar from './NavBar';
 
 const containerStyle = {
     width: '400px',
@@ -21,7 +22,6 @@ const { isLoaded } = useJsApiLoader({
 const [map, setMap] = React.useState(null)
 
 const onLoad = React.useCallback(function callback(map) {
-    // This is just an example of getting and using the map instance!!! don't just blindly copy!
     const bounds = new window.google.maps.LatLngBounds(center);
     map.fitBounds(bounds);
 
@@ -33,16 +33,23 @@ const onUnmount = React.useCallback(function callback(map) {
 }, [])
 
 return isLoaded ? (
-    <GoogleMap
+    <><h1>
+        Home
+    </h1><>
+    <><GoogleMap
         mapContainerStyle={containerStyle}
         center={center}
         zoom={10}
         onLoad={onLoad}
         onUnmount={onUnmount}
     >
-        { /* Child components, such as markers, info windows, etc. */ }
+        {/* Child components, such as markers, info windows, etc. */}
         <></>
     </GoogleMap>
+        <div /></><NavBar />
+        </></>
+        
+
 ) : <></>
 }
 

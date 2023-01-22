@@ -4,7 +4,9 @@ import './App.css';
 import Login from './components/Login';
 import Logout from './components/Logout';
 import Home from './components/Home';
-import About from './Maps';
+import Map from './Maps';
+import Profile from './components/Profile';
+import GiveOrReceive from './components/GiveOrReceiveGoods';
 
 
 /*function App() {
@@ -34,8 +36,11 @@ function App() {
           <Route path='/Logout' element={<Logout/>} /> 
   
           <Route path='/Home' element={<Home/>} /> 
-  
-          <Route path='/Maps' element={<About/>} /> 
+
+          <Route path = '/Profile' element = {<Profile/>} />
+
+          <Route path = '/GiveOrReceiveGoods' element = {<GiveOrReceive/>} />
+
   
       </Routes> 
   
