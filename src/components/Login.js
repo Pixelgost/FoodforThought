@@ -1,24 +1,53 @@
 import React from 'react';
 import { GoogleLogin } from 'react-google-login';
-// refresh token
+import { useNavigate } from "react-router-dom";
 
-import {
-  BrowserRouter as Router,
-  Route,
-} from "react-router-dom";
 import Home from "./Home";
+var AWS = require("aws-sdk");
+let awsConfig = {
+  "region": "us-east-2",
+  "endpoint": "http://dynamodb.us-east-2.amazonaws.com",
+  "accessKeyId": "AKIATWHP2O5ZIHUYX4RT", "secretAccessKey": "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"
+};
+AWS.config.update(awsConfig);
+
+let docClient = new AWS.DynamoDB.DocumentClient();
 
 const clientId =
   '707788443358-u05p46nssla3l8tmn58tpo9r5sommgks.apps.googleusercontent.com';
 
 function Login() {
-  const onSuccess = (res) => {
-  return (
-    <Router>
-        <Route exact path = "/" component = {Home} />
-    </Router>
-  );
-}
+  const navigate = useNavigate();
+
+  function handleClick() {
+    navigate("/home");
+  }
+  const onSuccess = (res) => 
+  {
+    var params = {
+      TableName: "FoodForThoughtDB",
+      Key: {
+          "email": res.profileObj.email
+      }
+    };
+    let result = null;
+    docClient.get(params, function (err, data) {
+      if (err) {
+        console.log("users::fetchOneByKey::error - " + JSON.stringify(err, null, 2));
+      }
+      else {
+        result = (JSON.stringify(data, null, 2));
+        if(result === null || result === "{}"){
+          save(res.profileObj.email, res.profileObj.name, "FoodForThoughtDB");
+        
+        }
+        
+        handleClick();
+      }
+      
+    })
+    
+  }
   
   const onFailure = (res) => {
     console.log('Login failed: res:', res);
@@ -41,5 +70,25 @@ function Login() {
     </div>
   );
 }
+
+function save (email, name, Db) {
+  var input = {
+    "email": email, "name": name, "created_on": new Date().toString(), "inventory": [], "type": ''
+  };
+    
+  var params = {
+      TableName: Db,
+      Item:  input
+  };
+  docClient.put(params, function (err, data) {
+
+      if (err) {
+          console.log("users::save::error - " + JSON.stringify(err, null, 2));                      
+      } else {
+          console.log("users::save::success" );                      
+      }
+  });
+}
+
 
 export default Login;

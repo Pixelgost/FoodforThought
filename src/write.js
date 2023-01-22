@@ -8,12 +8,9 @@ AWS.config.update(awsConfig);
 
 let docClient = new AWS.DynamoDB.DocumentClient();
 
-let save = function () {
+let save = function (input) {
 
-    var input = {
-        "email": "example-1@gmail.com", "created_by": "clientUser", "created_on": new Date().toString(),
-        "updated_by": "clientUser", "updated_on": new Date().toString(), "is_deleted": false
-    };
+    
     var params = {
         TableName: "FoodForThoughtDB",
         Item:  input
@@ -27,6 +24,6 @@ let save = function () {
         }
     });
 }
-save();
+export default save();
 
         
