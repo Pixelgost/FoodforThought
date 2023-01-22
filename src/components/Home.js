@@ -12,7 +12,7 @@ AWS.config.update(awsConfig);
 let docClient = new AWS.DynamoDB.DocumentClient();
 const containerStyle = {
     width: '600px',
-    height: '650px',
+    height: 'calc(100vh - 85px)',
     float: 'right',
   };
   
