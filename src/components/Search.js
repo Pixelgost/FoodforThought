@@ -15,11 +15,11 @@ let docClient = new AWS.DynamoDB.DocumentClient();
 
 const ButtonGroup = styled.div`display: flex;`;
 const Button = styled.button`display: flex`;
+let items = [];
 function Search() {
   function searchFunction(){
     let query = (document.getElementById("entry-box").value);
     let num = parseFloat(document.getElementById("num-box").value);
-    let items = [];
     var params = {
       TableName: "FoodForThoughtItems"
     };
@@ -35,51 +35,51 @@ function Search() {
           dist = dist + ((item.longitude-pos.lng) *(item.longitude-pos.lng))
           dist = dist *69
           if(dist <= (num*num) && item.item == query){
-            const obj = {
-              name: item.item,
-              owner: item.Owner,
-              distance: dist
-            }
-            items.push(obj)
+            let it = "Name: " + item.item +", Owner: "+ item.Owner +", Distance:" + String(dist);
+            items.push(it)
           }
-
+          
         });
-        
+        console.log(items)
       }
     });
   }
   return (
-    <><h1>
-          Give Or Receive Goods
-      </h1><><div>
+    <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh'}}>
+      <h1 style={{fontSize: '2em', fontWeight: 'bold', textAlign: 'center', margin: '20px'}}>Search for Goods</h1>
+      <div style={{width: '80%', display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '20px'}}>
         <div>
-          <h3>
+          <h3 style={{textAlign: 'center', marginBottom: '20px'}}>
             Type the goods that you wish to give or receive in the box, and a max distance (in miles) in the second box.
           </h3>
         </div>
-        <div>
-        <TextField id="entry-box" 
-        label="" 
-        multiline
-        variant="outlined"
-        fullWidth = "fullWidth" />
-        <TextField id="num-box" 
-        label="" 
-        variant="outlined"
-        fullWidth = "fullWidth" />
-      
-        
-        <ButtonGroup>
-        <Button onClick={searchFunction}> Search </Button>
-        </ButtonGroup>
+        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+          <TextField 
+            id="entry-box" 
+            label="Goods" 
+            multiline
+            variant="outlined"
+            fullWidth 
+            style={{marginBottom: '20px'}}
+          />
+          <TextField 
+            id="num-box" 
+            label="Max Distance (in miles)" 
+            variant="outlined"
+            fullWidth 
+            style={{marginBottom: '20px'}}
+          />
+          <ButtonGroup>
+            <Button onClick={searchFunction} style={{backgroundColor: '#4CAF50', color: 'white', padding: '12px 20px', borderRadius: '5px'}}> Search </Button>
+          </ButtonGroup>
 
-        
-  
 
         </div>
-      </div><NavBar />
-          </></>
+      </div>
+      <NavBar />
+    </div>
   );
+
 };
   
 export default Search;

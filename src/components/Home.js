@@ -114,8 +114,16 @@ return isLoaded ? (
         Home
     </h1><>
     <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', position:'absolute', top:'16.69%', left:'-25%', width:'100%'}}>
- <h1>Food for thought</h1>
-</div>
+    <h1>Food for thought</h1>
+    </div>
+    <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', position:'absolute', top:'25.69%', left:'2.5%', width:'45%', flexDirection:'column'}}>
+    <b>FoodForThought is a service that connects those in need of food to those with an excess of it.
+        Use the search tab to find a particular food, and use the map on the right to find other users in your area.
+        This can help you find pick up points for food. Declare your wishlist, and view what other users have!
+
+        FoodForThought is here to revolutionize the way humanity distributes food.
+    </b>
+    </div>
     <><GoogleMap
         mapContainerStyle={containerStyle}
         center={center}

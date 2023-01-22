@@ -12,6 +12,8 @@ AWS.config.update(awsConfig);
   
 let docClient = new AWS.DynamoDB.DocumentClient();
 const Button = styled.button`display: flex`;
+
+let wishlist = [];
   
 function Profile() {
 
@@ -55,37 +57,40 @@ function Profile() {
       else {
         result = JSON.parse(JSON.stringify(data));
         console.log(result.Item.wishlist);
+        wishlist = result.Item.wishlist;
       }
     });
   }
+  getList();
   return (
-    <><h1>
-          Profile
-      </h1><><div>
-        Here, you can change your display name, the name that other users can see.
-        <div>
+    <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh'}}>
+      <div style={{textAlign: 'center', padding: '20px'}}>
+        <h1 style={{fontSize: '2em', fontWeight: 'bold'}}>Profile</h1>
+        <div style={{lineHeight: '1.5', fontSize: '1.2em'}}>
+          Here, you can change your display name, the name that other users can see.
+          <div>
+            You can view your wishlist
+            <div>
+              Finally, you can view your stats here as well.
+            </div>
+          </div>
+          <div style={{marginTop: '20px'}}>
+            <Button onClick={getList} style={{backgroundColor: '#4CAF50', color: 'white', padding: '12px 20px', borderRadius: '5px', alignItems: 'center'}}> Update Location </Button>
+            <div>
+              <h3 style={{marginTop: '20px'}}>Your current wishlist:</h3>
+              <ol>
+                {wishlist.map((String) => (
+                <li>{String}</li>
+                ))}
+              </ol>
+            </div>
+          </div>
         </div>
-        You can view your wishlist
-        <div>
-        </div>
-        Finally, you can view your stats here as well.
-        <div>
-        </div>
-        
-      <div>
       </div>
-      <Button onClick={getList}> Update Location </Button>
-      <div>
-      </div>
-      <div>
-      </div>
-      <h3>
-        Your current wishlist:
-      </h3>
-      
-      </div><NavBar />
-          </></>
+      <NavBar />
+    </div>
   );
+
 };
   
 export default Profile;

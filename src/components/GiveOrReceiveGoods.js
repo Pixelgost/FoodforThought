@@ -20,7 +20,7 @@ function GiveOrReceive() {
     document.getElementById("entry-box").value = '';
     var params = {
       TableName: "FoodForThoughtDB",
-      Key: { "email": "thisisadhi@gmail.com" },
+      Key: { "email": JSON.parse(localStorage.getItem("email")) },
       UpdateExpression: "set #ri = list_append(#ri, :vals)",
       ExpressionAttributeNames: {
         "#ri": "inventory"
@@ -62,7 +62,7 @@ function GiveOrReceive() {
     document.getElementById("entry-box").value = '';
     var params = {
       TableName: "FoodForThoughtDB",
-      Key: { "email": "thisisadhi@gmail.com" },
+      Key: { "email": JSON.parse(localStorage.getItem("email")) },
       UpdateExpression: "set #ri = list_append(#ri, :vals)",
       ExpressionAttributeNames: {
         "#ri": "wishlist"
@@ -82,35 +82,33 @@ function GiveOrReceive() {
     });
   }
   return (
-    <><h1>
-          Give Or Receive Goods
-      </h1><><div>
+    <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
+      <h1 style={{fontSize: '2em', fontWeight: 'bold', textAlign: 'center', margin: '20px'}}>Give Or Receive Goods</h1>
+      <div style={{width: '80%', display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '20px'}}>
         <div>
-          <h3>
+          <h3 style={{textAlign: 'center', marginBottom: '20px'}}>
             Type the goods that you wish to give or receive in the box, along with their quantities, then click on the appropriate button.
           </h3>
         </div>
-        <div>
-        <TextField id="entry-box" 
-        label="" 
-        multiline
-        variant="outlined"
-        fullWidth = "fullWidth" />
-      
-      
-        
-        <ButtonGroup>
-        <Button onClick={Wanting}> I want to receive these goods </Button>
-        <Button onClick={Giving}> I want to donate these goods</Button>
-        </ButtonGroup>
-
-        
-  
-
+        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+          <TextField 
+            id="entry-box" 
+            label="" 
+            multiline
+            variant="outlined"
+            fullWidth 
+            style={{marginBottom: '20px'}}
+          />
+          <ButtonGroup>
+            <Button onClick={Wanting} style={{backgroundColor: '#4CAF50', color: 'white', marginRight: '10px'}}> I want to receive these goods </Button>
+            <Button onClick={Giving} style={{backgroundColor: '#4CAF50', color: 'white'}}> I want to donate these goods</Button>
+          </ButtonGroup>
         </div>
-      </div><NavBar />
-          </></>
+      </div>
+      <NavBar />
+    </div>
   );
+
 };
   
 export default GiveOrReceive;

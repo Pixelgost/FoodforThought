@@ -90,17 +90,35 @@ function Login() {
   };
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center' }}>
-    <GoogleLogin
-      clientId={clientId}
-      buttonText="Login"
-      onSuccess={onSuccess}
-      onFailure={onFailure}
-      cookiePolicy={'single_host_origin'}
-      style={{ position: 'relative' }}
-      isSignedIn={true}
-    />
-  </div>
+    <div style={{
+      background: 'linear-gradient(to bottom, #FFA500, #ADD8E6)',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      height: '100vh'
+    }}>
+      <div style={{display: 'flex', justifyContent: 'center', marginBottom: '3rem'}}>
+        <h1 style={{color: 'white', textShadow: '1px 1px #000000'}}>Food For Thought</h1>
+      </div>
+      <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+        <GoogleLogin
+          clientId={clientId}
+          buttonText="Login"
+          onSuccess={onSuccess}
+          onFailure={onFailure}
+          cookiePolicy={'single_host_origin'}
+          style={{ 
+            backgroundColor: 'white', 
+            color: '#4285F4', 
+            padding: '.5rem 2rem', 
+            borderRadius: '.5rem',
+            boxShadow: '1px 1px #000000'
+          }}
+          isSignedIn={true}
+        />
+      </div>
+    </div>
   );
 }
 
