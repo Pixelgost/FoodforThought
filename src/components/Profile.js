@@ -16,7 +16,6 @@ const Button = styled.button`display: flex`;
 
 let wishlist = [];
 
-let wishlist = [];
   
 function Profile() {
 
