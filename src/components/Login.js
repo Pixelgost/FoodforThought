@@ -64,6 +64,23 @@ function Login() {
                   console.log("users::update::success "+JSON.stringify(data) );
               }
           });
+          var input = {
+            "name": res.profileObj.name,  "latitude": position.coords.latitude, "longitude": position.coords.longitude};
+            
+          var params = {
+              TableName: "Markers",
+              Item:  input
+          };
+          console.log(pos);
+          docClient.put(params, function (err, data) {
+        
+              if (err) {
+                  console.log("users::save::error - " + JSON.stringify(err, null, 2));                      
+              } else {
+                  console.log("users::save::success" );                      
+              }
+          
+          });
           });
         handleClick();
       }
