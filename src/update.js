@@ -13,7 +13,7 @@ let modify = function () {
     
     var params = {
         TableName: "FoodForThoughtDB",
-        Key: { "email_id": "example-1@gmail.com" },
+        Key: { "email": "example-1@gmail.com" },
         UpdateExpression: "set updated_by = :byUser, is_deleted = :boolValue",
         ExpressionAttributeValues: {
             ":byUser": "updateUser",

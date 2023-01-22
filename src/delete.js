@@ -13,7 +13,7 @@ let remove = function () {
     var params = {
         TableName: "FoodForThoughtDB",
         Key: {
-            "email_id": "example@gmail.com"
+            "email": "example@gmail.com"
         }
     };
     docClient.delete(params, function (err, data) {

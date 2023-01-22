@@ -11,7 +11,7 @@ let fetchOneByKey = function () {
     var params = {
         TableName: "FoodForThoughtDB",
         Key: {
-            "email_id": "example@gmail.com"
+            "email": "example@gmail.com"
         }
     };
     docClient.get(params, function (err, data) {
