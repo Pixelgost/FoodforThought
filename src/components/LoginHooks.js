@@ -11,7 +11,7 @@ function LoginHooks() {
   const onSuccess = (res) => {
     console.log('Login Success: currentUser:', res.profileObj);
     alert(
-      `Logged in successfully welcome ${res.profileObj.name} 😍. \n See console for full profile object.`
+      `Logged in!`
     );
     refreshTokenSetup(res);
   };
@@ -19,7 +19,7 @@ function LoginHooks() {
   const onFailure = (res) => {
     console.log('Login failed: res:', res);
     alert(
-      `Failed to login. 😢 Please ping this to repo owner twitter.com/sivanesh_fiz`
+      `Login failed!`
     );
   };
 

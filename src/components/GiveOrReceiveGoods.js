@@ -4,7 +4,7 @@ import NavBar from './NavBar';
 function GiveOrReceive() {
   return (
     <><h1>
-          GiveOrReceive
+          Give Or Receive Goods
       </h1><><div>
       </div><NavBar />
           </></>
