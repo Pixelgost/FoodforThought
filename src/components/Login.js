@@ -123,6 +123,4 @@ function save (email, name, Db) {
   
   });
 }
-
-
 export default Login;
