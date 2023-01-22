@@ -11,8 +11,8 @@ AWS.config.update(awsConfig);
   
 let docClient = new AWS.DynamoDB.DocumentClient();
 const containerStyle = {
-    width: '400px',
-    height: '400px'
+    width: '650px',
+    height: '650px'
   };
   
   const center = {
@@ -45,10 +45,37 @@ const onLoad = React.useCallback(function callback(map) {
             result = (JSON.stringify(data, null, 2));
             const tempObj = JSON.parse(result)
             var center = {lat: tempObj.Item.latitude, lng: tempObj.Item.longitude}
+
+            
             const bounds = new window.google.maps.LatLngBounds(center);
             map.fitBounds(bounds);
-    
             setMap(map)
+            const infoWindow = new window.google.maps.InfoWindow();
+            var params = {
+                TableName: "Markers"
+            }
+            docClient.scan(params, function (err,data){
+
+                let temp = JSON.stringify(data, null, 2);
+                
+                const secondObj = JSON.parse(temp);
+                console.log(secondObj)
+                secondObj.Items.forEach((item, i) =>{
+                    const marker = new window.google.maps.Marker({
+                        position: {lat: item.latitude, lng: item.longitude},
+                        map,
+                        title: item.name+"'s location",
+
+                    });
+                    
+                    marker.addListener("click", () => {
+                        infoWindow.close();
+                        infoWindow.setContent(marker.getTitle());
+                        infoWindow.open(marker.getMap(), marker);
+                      });
+                })
+                
+            })
         }
     })
     
@@ -65,12 +92,12 @@ return isLoaded ? (
     <><GoogleMap
         mapContainerStyle={containerStyle}
         center={center}
-        zoom={10}
+        zoom={2}
         onLoad={onLoad}
         onUnmount={onUnmount}
     >
         {/* Child components, such as markers, info windows, etc. */}
-        <></>
+    <></>
     </GoogleMap>
         <div /></><NavBar />
         </></>
