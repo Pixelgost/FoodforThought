@@ -3,8 +3,8 @@ import React from 'react';
 import NavBar from './NavBar';
 
 const containerStyle = {
-    width: '400px',
-    height: '400px'
+    width: '500px',
+    height: '500px'
   };
   
   const center = {
@@ -35,11 +35,10 @@ const onUnmount = React.useCallback(function callback(map) {
 return isLoaded ? (
     <><h1>
         Home
-    </h1><>
-    <><GoogleMap
+    </h1><><><GoogleMap
         mapContainerStyle={containerStyle}
         center={center}
-        zoom={10}
+        zoom={2}
         onLoad={onLoad}
         onUnmount={onUnmount}
     >

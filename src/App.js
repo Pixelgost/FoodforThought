@@ -7,6 +7,7 @@ import Home from './components/Home';
 import Map from './Maps';
 import Profile from './components/Profile';
 import GiveOrReceive from './components/GiveOrReceiveGoods';
+import Search from './components/Search';
 
 
 /*function App() {
@@ -40,6 +41,8 @@ function App() {
           <Route path = '/Profile' element = {<Profile/>} />
 
           <Route path = '/GiveOrReceiveGoods' element = {<GiveOrReceive/>} />
+
+          <Route path = '/Search' element = {<Search/>} />
 
   
       </Routes> 
