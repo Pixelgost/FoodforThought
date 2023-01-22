@@ -1,7 +1,15 @@
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
 import React from 'react';
 import NavBar from './NavBar';
-
+var AWS = require("aws-sdk");
+let awsConfig = {
+    "region": "us-east-2",
+    "endpoint": "http://dynamodb.us-east-2.amazonaws.com",
+    "accessKeyId": "AKIATWHP2O5ZIHUYX4RT", "secretAccessKey": "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"
+};
+AWS.config.update(awsConfig);
+  
+let docClient = new AWS.DynamoDB.DocumentClient();
 const containerStyle = {
     width: '500px',
     height: '500px'
@@ -22,10 +30,28 @@ const { isLoaded } = useJsApiLoader({
 const [map, setMap] = React.useState(null)
 
 const onLoad = React.useCallback(function callback(map) {
-    const bounds = new window.google.maps.LatLngBounds(center);
-    map.fitBounds(bounds);
-
-    setMap(map)
+    var params = {
+        TableName: "Markers",
+        Key: {
+        "name": "Adhi Babu"
+        }
+    };
+    let result = null;
+    docClient.get(params, function (err, data) {
+        if (err) {
+            console.log("users::fetchOneByKey::error - " + JSON.stringify(err, null, 2));
+        }
+        else {
+            result = (JSON.stringify(data, null, 2));
+            const tempObj = JSON.parse(result)
+            var center = {lat: tempObj.Item.latitude, lng: tempObj.Item.longitude}
+            const bounds = new window.google.maps.LatLngBounds(center);
+            map.fitBounds(bounds);
+    
+            setMap(map)
+        }
+    })
+    
 }, [])
 
 const onUnmount = React.useCallback(function callback(map) {
