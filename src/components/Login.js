@@ -123,7 +123,7 @@ function findLat(){
 function save (email, name, Db) {
   
   var input = {
-    "email": email, "name": name, "created_on": new Date().toString(), "inventory": [], "type": '', "latitude": 0, "longitude": 0};
+    "email": email, "name": name, "created_on": new Date().toString(), "inventory": [], "donated": [], "wishlist": [], "latitude": 0, "longitude": 0};
     
   var params = {
       TableName: Db,

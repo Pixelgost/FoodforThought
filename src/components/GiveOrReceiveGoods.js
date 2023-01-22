@@ -7,6 +7,9 @@ import styled from 'styled-components';
 const ButtonGroup = styled.div`display: flex;`;
 const Button = styled.button`display: flex`;
 function GiveOrReceive() {
+  function Giving(){
+          
+  }
   return (
     <><h1>
           Give Or Receive Goods
@@ -24,10 +27,10 @@ function GiveOrReceive() {
         fullWidth = "fullWidth" />
       
       
-      
+        
         <ButtonGroup>
-        <Button> I want to receive these goods </Button>
-        <Button> I want to donate these goods</Button>
+        <Button onClick={Giving}> I want to receive these goods </Button>
+        <Button onClick={Giving}> I want to donate these goods</Button>
         </ButtonGroup>
 
         
