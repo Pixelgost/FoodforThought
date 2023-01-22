@@ -20,7 +20,7 @@ function GiveOrReceive() {
     document.getElementById("entry-box").value = '';
     var params = {
       TableName: "FoodForThoughtDB",
-      Key: { "email": "thisisadhi@gmail.com" },
+      Key: { "email": JSON.parse(localStorage.getItem("email")) },
       UpdateExpression: "set #ri = list_append(#ri, :vals)",
       ExpressionAttributeNames: {
         "#ri": "inventory"
@@ -62,7 +62,7 @@ function GiveOrReceive() {
     document.getElementById("entry-box").value = '';
     var params = {
       TableName: "FoodForThoughtDB",
-      Key: { "email": "thisisadhi@gmail.com" },
+      Key: { "email": JSON.parse(localStorage.getItem("email")) },
       UpdateExpression: "set #ri = list_append(#ri, :vals)",
       ExpressionAttributeNames: {
         "#ri": "wishlist"
