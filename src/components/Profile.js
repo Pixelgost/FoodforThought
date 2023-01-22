@@ -2,18 +2,61 @@ import React from 'react';
 import NavBar from './NavBar';
 import { TextField } from '@material-ui/core';
 import styled from 'styled-components';
-
+var AWS = require("aws-sdk");
+let awsConfig = {
+    "region": "us-east-2",
+    "endpoint": "http://dynamodb.us-east-2.amazonaws.com",
+    "accessKeyId": "AKIATWHP2O5ZIHUYX4RT", "secretAccessKey": "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"
+};
+AWS.config.update(awsConfig);
+  
+let docClient = new AWS.DynamoDB.DocumentClient();
 const Button = styled.button`display: flex`;
   
 function Profile() {
-  function UpdateName() {
 
-  }
   function UpdateLocation() {
-
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        var params = {
+          TableName: "FoodForThoughtDB",
+          Key: { "email": JSON.parse(localStorage.getItem("email"))},
+          UpdateExpression: "set latitude = :byUser, longitude = :boolValue",
+          ExpressionAttributeValues: {
+              ":byUser": position.coords.latitude,
+              ":boolValue": position.coords.longitude
+          },
+          ReturnValues: "UPDATED_NEW"
+  
+      };
+      docClient.update(params, function (err, data) {
+  
+          if (err) {
+              console.log("users::update::error - " + JSON.stringify(err, null, 2));
+          } else {
+              console.log("users::update::success "+JSON.stringify(data) );
+          }
+      });
+      });
   }
-  function SubmitWishlist() {
-
+  function getList(){
+    var params = {
+      TableName: "FoodForThoughtDB",
+      Key: {
+      "email": JSON.parse(localStorage.getItem("email"))
+      }
+      
+    };
+  let result = [];
+  docClient.get(params, function (err, data) {
+      if (err) {
+          console.log("users::fetchOneByKey::error - " + JSON.stringify(err, null, 2));
+      }
+      else {
+        result = JSON.parse(JSON.stringify(data));
+        console.log(result.Item.wishlist);
+      }
+    });
   }
   return (
     <><h1>
@@ -22,33 +65,22 @@ function Profile() {
         Here, you can change your display name, the name that other users can see.
         <div>
         </div>
-        You can also re-upate your current location, and provide a wishlist for the goods that you desire.
+        You can view your wishlist
         <div>
         </div>
         Finally, you can view your stats here as well.
         <div>
         </div>
-        <TextField id="new-name" 
-        label="Enter your new name here" 
-        size = "small"
-        variant="outlined"/>
-
-      <Button onClick={UpdateName}> Update Name </Button>
+        
       <div>
       </div>
-      <Button onClick={UpdateLocation}> Update Location </Button>
+      <Button onClick={getList}> Update Location </Button>
       <div>
       </div>
-      <TextField id="wish-list" 
-        label="Enter the goods on your wishlist here" 
-        multiline
-        variant="outlined"
-        fullWidth = "fullWidth"/>
-      <Button onClick={SubmitWishlist}> Submit Wishlist </Button>
       <div>
       </div>
       <h3>
-        Your current stats:
+        Your current wishlist:
       </h3>
       
       </div><NavBar />
