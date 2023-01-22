@@ -1,28 +1,52 @@
 import React from 'react';
+import { BrowserRouter as Router, Routes, Route} from 'react-router-dom'; 
 import './App.css';
 import Login from './components/Login';
 import Logout from './components/Logout';
-import LoginHooks from './components/LoginHooks';
-import LogoutHooks from './components/LogoutHooks';
+import Home from './components/Home';
+import About from './Maps';
 
-function App() {
+
+/*function App() {
   return (
     <div className="App">
-      <h2>The Components way</h2>
+      <h2>Food For Thought</h2>
       <Login />
       <br />
       <Logout />
-      <h2>The Hooks way</h2>
-      <LoginHooks />
-      <LogoutHooks />
-      <br />
-      If it does helped you feel free to star{' '}
-      <a href="https://github.com/Sivanesh-S/react-google-authentication">
-        Github Repo
-      </a>{' '}
-      😉
+      <Home />
+      <About />
     </div>
   );
 }
+*/
+function App() { 
 
-export default App;
+  return ( 
+  
+      <Router> 
+  
+  
+      <Routes> 
+  
+          <Route path='/react-google-authentication' element={<Login/>} /> 
+  
+          <Route path='/Logout' element={<Logout/>} /> 
+  
+          <Route path='/Home' element={<Home/>} /> 
+  
+          <Route path='/Maps' element={<About/>} /> 
+  
+      </Routes> 
+  
+      </Router> 
+  ); 
+  } 
+
+
+
+export default App
+
+
+
+
