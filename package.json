@@ -17,6 +17,7 @@
     "react-icons": "^4.7.1",
     "react-router-dom": "^6.7.0",
     "react-scripts": "^3.4.1",
+    "stream": "^0.0.2",
     "styled-components": "^5.3.6"
   },
   "scripts": {

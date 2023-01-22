@@ -31,11 +31,14 @@ const { isLoaded } = useJsApiLoader({
 const [map, setMap] = React.useState(null)
 
 const onLoad = React.useCallback(function callback(map) {
+    var mail = JSON.parse(localStorage.getItem("email"));
+    console.log(mail);
     var params = {
-        TableName: "Markers",
+        TableName: "FoodForThoughtDB",
         Key: {
-        "name": "Adhi Babu"
+        "email": mail
         }
+        
     };
     let result = null;
     docClient.get(params, function (err, data) {
@@ -44,41 +47,61 @@ const onLoad = React.useCallback(function callback(map) {
         }
         else {
             result = (JSON.stringify(data, null, 2));
-            const tempObj = JSON.parse(result)
-            var center = {lat: tempObj.Item.latitude, lng: tempObj.Item.longitude}
-
-            
-            const bounds = new window.google.maps.LatLngBounds(center);
-            map.fitBounds(bounds);
-            setMap(map)
-            const infoWindow = new window.google.maps.InfoWindow();
+            const tempObj = JSON.parse(result);
+            let name = tempObj;
+            localStorage.setItem("name", JSON.stringify(name.Item.name));
+            console.log(name.Item.name+" name");
             var params = {
-                TableName: "Markers"
-            }
-            docClient.scan(params, function (err,data){
-
-                let temp = JSON.stringify(data, null, 2);
-                
-                const secondObj = JSON.parse(temp);
-                console.log(secondObj)
-                secondObj.Items.forEach((item, i) =>{
-                    const marker = new window.google.maps.Marker({
-                        position: {lat: item.latitude, lng: item.longitude},
-                        map,
-                        title: item.name+"'s location",
-
-                    });
-                    
-                    marker.addListener("click", () => {
-                        infoWindow.close();
-                        infoWindow.setContent(marker.getTitle());
-                        infoWindow.open(marker.getMap(), marker);
-                      });
-                })
-                
+                TableName: "Markers",
+                Key: {
+                "name": name.Item.name
+                }
+            };
+            result = null;
+            docClient.get(params, function (err, data) {
+                if (err) {
+                    console.log("users::fetchOneByKey::error - " + JSON.stringify(err, null, 2));
+                }
+                else {
+                    result = (JSON.stringify(data, null, 2));
+                    const tempObj = JSON.parse(result)
+                    var center = {lat: tempObj.Item.latitude, lng: tempObj.Item.longitude}
+                    localStorage.setItem("pos", JSON.stringify(center));
+                    const bounds = new window.google.maps.LatLngBounds(center);
+                    map.fitBounds(bounds);
+                    setMap(map)
+                    const infoWindow = new window.google.maps.InfoWindow();
+                    var params = {
+                        TableName: "Markers"
+                    }
+                    docClient.scan(params, function (err,data){
+        
+                        let temp = JSON.stringify(data, null, 2);
+                        
+                        const secondObj = JSON.parse(temp);
+                        console.log(secondObj)
+                        secondObj.Items.forEach((item, i) =>{
+                            const marker = new window.google.maps.Marker({
+                                position: {lat: item.latitude, lng: item.longitude},
+                                map,
+                                title: item.name+"'s location",
+        
+                            });
+                            
+                            marker.addListener("click", () => {
+                                infoWindow.close();
+                                infoWindow.setContent(marker.getTitle());
+                                infoWindow.open(marker.getMap(), marker);
+                              });
+                        })
+                        
+                    })
+                }
             })
         }
+        
     })
+    
     
 }, [])
 

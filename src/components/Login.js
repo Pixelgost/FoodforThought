@@ -24,6 +24,7 @@ function Login() {
   }
   const onSuccess = (res) => 
   {
+    localStorage.setItem("email", JSON.stringify(res.profileObj.email))
     var params = {
       TableName: "FoodForThoughtDB",
       Key: {
