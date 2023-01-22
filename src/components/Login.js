@@ -1,9 +1,7 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
 import { GoogleLogin } from 'react-google-login';
 import { useNavigate } from "react-router-dom";
 
-import Home from "./Home";
 var AWS = require("aws-sdk");
 let awsConfig = {
   "region": "us-east-2",
@@ -64,13 +62,7 @@ function Login() {
                   console.log("users::update::success "+JSON.stringify(data) );
               }
           });
-          var input = {
-            "name": res.profileObj.name,  "latitude": position.coords.latitude, "longitude": position.coords.longitude};
-            
-          var params = {
-              TableName: "Markers",
-              Item:  input
-          };
+        
           console.log(pos);
           docClient.put(params, function (err, data) {
         
@@ -92,7 +84,7 @@ function Login() {
   const onFailure = (res) => {
     console.log('Login failed: res:', res);
     alert(
-      `Failed to login. 😢 Please ping this to repo owner twitter.com/sivanesh_fiz`
+      `Failed to login`
     );
   };
 
@@ -110,16 +102,7 @@ function Login() {
   </div>
   );
 }
-function findLong(){
-  navigator.geolocation.getCurrentPosition(function(position) {
-    return(position.coords.longitude);
-  });
-  
-}
-function findLat(){
-  
-  
-}
+
 function save (email, name, Db) {
   
   var input = {

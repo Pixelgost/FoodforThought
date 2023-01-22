@@ -4,7 +4,6 @@ import './App.css';
 import Login from './components/Login';
 import Logout from './components/Logout';
 import Home from './components/Home';
-import Map from './Maps';
 import Profile from './components/Profile';
 import GiveOrReceive from './components/GiveOrReceiveGoods';
 import Search from './components/Search';
