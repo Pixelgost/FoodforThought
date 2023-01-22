@@ -88,8 +88,7 @@ const onUnmount = React.useCallback(function callback(map) {
 return isLoaded ? (
     <><h1>
         Home
-    </h1><>
-    <><GoogleMap
+    </h1><><><GoogleMap
         mapContainerStyle={containerStyle}
         center={center}
         zoom={2}

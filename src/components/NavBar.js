@@ -24,10 +24,10 @@ const NavBar = () => {
           <NavLink to='/GiveOrReceiveGoods' activeStyle>
             Give/Receive Goods
           </NavLink>
+          <NavLink to='/Search' activeStyle>
+            Search
+          </NavLink>
         </NavMenu>
-        <NavBtn>
-          <NavBtnLink to='/react-google-authentication'>Sign Out</NavBtnLink>
-        </NavBtn>
       </Nav>
     </>
   );
