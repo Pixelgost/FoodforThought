@@ -11,8 +11,9 @@ AWS.config.update(awsConfig);
   
 let docClient = new AWS.DynamoDB.DocumentClient();
 const containerStyle = {
-    width: '650px',
-    height: '650px'
+    width: '600px',
+    height: '650px',
+    float: 'right',
   };
   
   const center = {
@@ -88,7 +89,11 @@ const onUnmount = React.useCallback(function callback(map) {
 return isLoaded ? (
     <><h1>
         Home
-    </h1><><><GoogleMap
+    </h1><>
+    <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', position:'absolute', top:'16.69%', left:'-25%', width:'100%'}}>
+ <h1>Food for thought</h1>
+</div>
+    <><GoogleMap
         mapContainerStyle={containerStyle}
         center={center}
         zoom={2}
@@ -100,7 +105,7 @@ return isLoaded ? (
     </GoogleMap>
         <div /></><NavBar />
         </></>
-        
+
 
 ) : <></>
 }

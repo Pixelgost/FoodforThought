@@ -17,13 +17,14 @@ export const Nav = styled.nav`
 `;
 
 export const NavLink = styled(Link)`
-  color: #f20c0c;
+  color: #5A5A5A;
   display: flex;
   align-items: center;
   text-decoration: none;
   padding: 0 1rem;
   height: 100%;
   cursor: pointer;
+  font-weight: bold;
   &.active {
     color: #000000;
   }
